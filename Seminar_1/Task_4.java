@@ -7,7 +7,7 @@ package Seminar_1;
 
 public class Task_4 {
 
-    public static void main(int[] arr){
+    public static void main(String[] arr){
         int[] array1 = {1, 4, 7, 5};
         int[] array2 = {6, 3, 10, 0};
         CheckArr(array1, array2);
