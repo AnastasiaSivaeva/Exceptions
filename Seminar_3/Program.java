@@ -1,36 +1,36 @@
 package Seminar_3;
 
 import java.io.FileWriter;
+import java.util.HashMap;
 import java.util.Scanner;
 
 import javax.lang.model.util.ElementScanner14;
 
-public class Task1 {
-    public static void main(String[] arr){
+public class Program {
+    public static void main(String[] args) {
+        ParsData parsData = new ParsData(); 
         String newFileName = null;
         WriteFile writeFile = new WriteFile();
-    }
 
-    public static String[] InputData(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Введите данные через пробел: Ф.И.О, дату рождения в формате дд.мм.гггг, номер телефона, пол в формате М/Ж: ");
-        String data = scanner.nextLine();
-        String[] arrData = data.split(" ");
-        if(arrData.length == 6){
-            return arrData;
-        }else if( arrData.length < 6){
-            System.out.println("Вы ввели не все данные, попробуйте снова");
-        }else System.out.println("Вы ввели лишние данные, попробуйте снова");
-        return null;
-    }
+        HashMap<String, Object> data = parsData.parsInputData(); 
+        while (data.size() != 6) {
+            try {
+                throw new DataException();
+            } catch (DataException e) {
+                data = parsData.parsInputData();
+            }
+        } 
 
-    public void WriteFile(){
-        try(FileWriter fw = new FileWriter()){
-            fw.append(data);
-
+        newFileName = data.get("firstName") + ".txt"; 
+        StringBuilder sb = new StringBuilder();
+        for (String str : data.keySet()) {
+            sb.append(data.get(str));
+            sb.append(" ");
         }
+        System.out.println(data);
+        String filePath = newFileName;
+        System.out.println(filePath);
+        writeFile.writeData(String.valueOf(sb), filePath); 
 
-    }
-
-
+}
 }
